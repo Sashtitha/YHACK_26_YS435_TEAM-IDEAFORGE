@@ -7,15 +7,9 @@ infographic — all grounded in one shared "fact graph" so they stay consistent 
 
 ## Quick start
 
-```bash
-npm install
-npm start
-```
+## 🌐 Live Demo
 
-Then open **http://localhost:3000**.
-
-It works immediately with **no API key** — it runs in **DEMO mode**, using a template-based fallback
-so you can see the whole flow end-to-end right away.
+[TransformAI – Live Application](https://transformai-lxl0.onrender.com/)
 
 ## Going live with real AI generation
 
