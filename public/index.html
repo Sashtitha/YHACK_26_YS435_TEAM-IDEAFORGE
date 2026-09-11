@@ -1,0 +1,3470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TransformAI — One Source. Every Language. Every Format.</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --bg:#070707;
+  --surface:#111111;
+  --surface-2:#171717;
+  --surface-3:#241010;
+
+  --border:#292929;
+  --border-strong:#3A3A3A;
+
+  --text:#F5F5F5;
+  --text-muted:#A6A6A6;
+  --text-faint:#6F6F6F;
+
+  --red:#E50914;
+  --red-bright:#FF2735;
+  --red-dark:#B20710;
+
+  --green:#22C55E;
+  --amber:#F59E0B;
+
+  --grad-brand:linear-gradient(
+    135deg,
+    #8F0710 0%,
+    #E50914 55%,
+    #FF3341 100%
+  );
+
+  --grad-hero:radial-gradient(
+    120% 160% at 10% 0%,
+    #5C090F 0%,
+    #29080B 42%,
+    #080808 100%
+  );
+
+  --radius-xl:24px;
+  --radius-lg:18px;
+  --radius-md:13px;
+  --radius-sm:9px;
+
+  --shadow-sm:
+    0 1px 2px rgba(0,0,0,.4),
+    0 1px 1px rgba(0,0,0,.25);
+
+  --shadow-md:
+    0 10px 28px -8px rgba(0,0,0,.65);
+
+  --shadow-lg:
+    0 24px 60px -12px rgba(0,0,0,.8);
+
+  --font-d:'Space Grotesk',sans-serif;
+  --font-b:'Inter',sans-serif;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html,
+body{
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:var(--font-b);
+  color:var(--text);
+  background:
+    radial-gradient(
+      circle at 80% 10%,
+      rgba(229,9,20,.07),
+      transparent 30%
+    ),
+    var(--bg);
+  font-size:15px;
+  line-height:1.5;
+}
+
+body::selection{
+  background:var(--red);
+  color:#fff;
+}
+
+h1,h2,h3,h4{
+  font-family:var(--font-d);
+  margin:0;
+  letter-spacing:-0.01em;
+}
+
+p{
+  margin:0;
+}
+
+button{
+  font-family:inherit;
+  cursor:pointer;
+}
+
+a{
+  color:inherit;
+}
+
+.app{
+  display:flex;
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:250px;
+  flex:0 0 250px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #0C0C0C 0%,
+      #090909 100%
+    );
+
+  border-right:1px solid var(--border);
+
+  display:flex;
+  flex-direction:column;
+
+  padding:22px 16px;
+
+  position:sticky;
+  top:0;
+  height:100vh;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:4px 8px 22px;
+}
+
+.brand-mark{
+  width:36px;
+  height:36px;
+
+  border-radius:11px;
+
+  background:var(--grad-brand);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  box-shadow:
+    0 0 20px rgba(229,9,20,.28),
+    var(--shadow-sm);
+
+  color:#fff;
+
+  font-weight:700;
+  font-family:var(--font-d);
+
+  flex:none;
+}
+
+.brand-name{
+  font-family:var(--font-d);
+  font-weight:700;
+  font-size:17px;
+  color:#fff;
+}
+
+.brand-tag{
+  font-size:11px;
+  color:var(--text-faint);
+  margin-top:1px;
+}
+
+.nav-label{
+  font-size:11px;
+  color:#666;
+  padding:10px 12px 6px;
+  font-weight:600;
+  letter-spacing:.08em;
+}
+
+.nav-item{
+  display:flex;
+  align-items:center;
+  gap:11px;
+
+  padding:10px 12px;
+
+  border-radius:11px;
+
+  color:var(--text-muted);
+
+  font-size:14px;
+  font-weight:500;
+
+  text-decoration:none;
+
+  margin-bottom:3px;
+
+  position:relative;
+
+  border:1px solid transparent;
+
+  background:none;
+
+  width:100%;
+
+  text-align:left;
+
+  transition:
+    background .2s ease,
+    color .2s ease,
+    border .2s ease;
+}
+
+.nav-item:hover{
+  background:#171717;
+  color:#fff;
+  border-color:#252525;
+}
+
+.nav-item.active{
+  background:
+    linear-gradient(
+      90deg,
+      rgba(229,9,20,.16),
+      rgba(229,9,20,.05)
+    );
+
+  color:#fff;
+
+  font-weight:600;
+
+  border-color:rgba(229,9,20,.22);
+}
+
+.nav-item.active::before{
+  content:"";
+
+  position:absolute;
+
+  left:-16px;
+  top:8px;
+  bottom:8px;
+
+  width:3px;
+
+  background:var(--grad-brand);
+
+  border-radius:0 4px 4px 0;
+
+  box-shadow:0 0 12px rgba(229,9,20,.7);
+}
+
+.sidebar-spacer{
+  flex:1;
+}
+
+/* AI STATUS */
+
+.status-card{
+  background:var(--grad-hero);
+
+  border:1px solid rgba(229,9,20,.25);
+
+  border-radius:var(--radius-lg);
+
+  padding:16px;
+
+  color:#fff;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.45),
+    inset 0 1px rgba(255,255,255,.04);
+}
+
+.status-card .dot{
+  display:inline-block;
+
+  width:8px;
+  height:8px;
+
+  border-radius:50%;
+
+  margin-right:6px;
+
+  box-shadow:0 0 10px currentColor;
+}
+
+.status-card h4{
+  font-size:13px;
+  font-weight:600;
+  margin:8px 0 4px;
+}
+
+.status-card p{
+  font-size:12px;
+  color:rgba(255,255,255,.68);
+}
+
+/* MAIN */
+
+.main-col{
+  flex:1;
+  min-width:0;
+
+  display:flex;
+  flex-direction:column;
+}
+
+/* TOP BAR */
+
+.topbar{
+  height:64px;
+
+  flex:none;
+
+  display:flex;
+  align-items:center;
+
+  gap:16px;
+
+  padding:0 28px;
+
+  background:rgba(10,10,10,.88);
+
+  backdrop-filter:blur(14px);
+
+  border-bottom:1px solid var(--border);
+
+  position:sticky;
+
+  top:0;
+
+  z-index:30;
+}
+
+.topbar h2{
+  font-size:16px;
+  color:#fff;
+}
+
+.topbar-spacer{
+  flex:1;
+}
+
+/* PILLS */
+
+.pill{
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:6px;
+
+  font-size:12px;
+
+  font-weight:600;
+
+  padding:5px 11px;
+
+  border-radius:99px;
+
+  border:1px solid transparent;
+}
+
+.pill-green{
+  background:rgba(34,197,94,.10);
+  color:#4ADE80;
+  border-color:rgba(34,197,94,.20);
+}
+
+.pill-amber{
+  background:rgba(245,158,11,.10);
+  color:#FBBF24;
+  border-color:rgba(245,158,11,.20);
+}
+
+/* CONTENT */
+
+.content{
+  padding:28px 32px 60px;
+
+  max-width:1180px;
+
+  width:100%;
+
+  margin:0 auto;
+}
+
+.view{
+  display:none;
+}
+
+.view.active{
+  display:block;
+
+  animation:fadein .3s ease;
+}
+
+@keyframes fadein{
+  from{
+    opacity:0;
+    transform:translateY(6px);
+  }
+
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+/* CARDS */
+
+.card{
+  background:
+    linear-gradient(
+      145deg,
+      #151515,
+      #0F0F0F
+    );
+
+  border:1px solid var(--border);
+
+  border-radius:var(--radius-xl);
+
+  box-shadow:var(--shadow-sm);
+
+  position:relative;
+}
+
+.card::before{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  border-radius:inherit;
+
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.025),
+      transparent 35%
+    );
+}
+
+/* BUTTONS */
+
+.btn{
+  border-radius:11px;
+
+  font-weight:600;
+
+  font-size:13.5px;
+
+  padding:11px 18px;
+
+  border:1px solid transparent;
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:8px;
+
+  transition:
+    transform .2s ease,
+    filter .2s ease,
+    box-shadow .2s ease;
+}
+
+.btn-primary{
+  background:var(--grad-brand);
+
+  color:#fff;
+
+  box-shadow:
+    0 8px 24px rgba(229,9,20,.25),
+    inset 0 1px rgba(255,255,255,.12);
+}
+
+.btn-primary:hover{
+  filter:brightness(1.12);
+
+  transform:translateY(-1px);
+
+  box-shadow:
+    0 12px 30px rgba(229,9,20,.35);
+}
+
+.btn-primary:disabled{
+  opacity:.55;
+
+  cursor:not-allowed;
+
+  transform:none;
+}
+
+.btn-secondary{
+  background:#161616;
+
+  border-color:var(--border-strong);
+
+  color:#eee;
+}
+
+.btn-secondary:hover{
+  background:#1D1D1D;
+
+  border-color:#555;
+}
+
+.btn-block{
+  width:100%;
+  justify-content:center;
+}
+
+/* HERO */
+
+.hero{
+  background:var(--grad-hero);
+
+  border:1px solid rgba(229,9,20,.25);
+
+  border-radius:var(--radius-xl);
+
+  color:#fff;
+
+  padding:34px 40px;
+
+  margin-bottom:26px;
+
+  position:relative;
+
+  overflow:hidden;
+
+  box-shadow:
+    0 20px 50px rgba(0,0,0,.45);
+}
+
+.hero::after{
+  content:"";
+
+  position:absolute;
+
+  width:300px;
+  height:300px;
+
+  right:-100px;
+  top:-160px;
+
+  background:rgba(229,9,20,.18);
+
+  filter:blur(70px);
+
+  border-radius:50%;
+
+  pointer-events:none;
+}
+
+.hero-eyebrow{
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:7px;
+
+  font-size:12px;
+
+  font-weight:600;
+
+  background:rgba(229,9,20,.16);
+
+  border:1px solid rgba(255,255,255,.10);
+
+  padding:6px 12px;
+
+  border-radius:99px;
+
+  margin-bottom:14px;
+}
+
+.hero h1{
+  font-size:28px;
+
+  margin-bottom:8px;
+
+  position:relative;
+
+  z-index:1;
+}
+
+.hero p{
+  color:rgba(255,255,255,.78);
+
+  font-size:14px;
+
+  max-width:680px;
+
+  position:relative;
+
+  z-index:1;
+}
+
+/* LANGUAGE FEATURE STRIP */
+
+.language-feature{
+  margin-top:20px;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  flex-wrap:wrap;
+
+  position:relative;
+
+  z-index:2;
+}
+
+.language-feature span{
+  font-size:11px;
+
+  padding:6px 10px;
+
+  border-radius:99px;
+
+  background:rgba(255,255,255,.08);
+
+  border:1px solid rgba(255,255,255,.12);
+
+  color:#ddd;
+}
+
+.language-feature .active-lang{
+  background:rgba(229,9,20,.18);
+
+  border-color:rgba(229,9,20,.35);
+
+  color:#fff;
+}
+
+/* SECTION TITLES */
+
+.section-title{
+  font-size:15px;
+
+  font-weight:600;
+
+  margin:26px 0 12px;
+
+  color:#F1F1F1;
+}
+
+.section-title:first-child{
+  margin-top:0;
+}
+
+/* INPUT TOGGLE */
+
+.input-toggle{
+  display:flex;
+
+  gap:8px;
+
+  margin-bottom:14px;
+}
+
+.input-toggle button{
+  flex:1;
+
+  padding:9px;
+
+  border-radius:11px;
+
+  border:1px solid var(--border);
+
+  background:#171717;
+
+  font-size:13px;
+
+  font-weight:600;
+
+  color:var(--text-muted);
+
+  transition:.2s ease;
+}
+
+.input-toggle button:hover{
+  background:#1D1D1D;
+
+  color:#fff;
+}
+
+.input-toggle button.active{
+  background:
+    linear-gradient(
+      135deg,
+      rgba(229,9,20,.18),
+      rgba(229,9,20,.06)
+    );
+
+  border-color:var(--red);
+
+  color:#fff;
+
+  box-shadow:
+    0 0 0 3px rgba(229,9,20,.08);
+}
+
+/* DROPZONE */
+
+.dropzone{
+  border:1.5px dashed #3A3A3A;
+
+  border-radius:var(--radius-lg);
+
+  background:#131313;
+
+  padding:34px 24px;
+
+  text-align:center;
+
+  cursor:pointer;
+
+  transition:.2s ease;
+}
+
+.dropzone:hover{
+  border-color:var(--red);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(229,9,20,.08),
+      #131313
+    );
+}
+
+.dropzone-icon{
+  width:52px;
+  height:52px;
+
+  border-radius:14px;
+
+  background:var(--grad-brand);
+
+  margin:0 auto 14px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  box-shadow:
+    0 10px 25px rgba(229,9,20,.25);
+
+  color:#fff;
+
+  font-size:22px;
+}
+
+.dropzone h4{
+  font-size:14.5px;
+
+  font-weight:600;
+
+  margin-bottom:4px;
+}
+
+.dropzone .browse{
+  color:#FF4A55;
+
+  font-weight:600;
+}
+
+.dropzone .hint{
+  color:var(--text-faint);
+
+  font-size:12px;
+
+  margin-top:8px;
+}
+
+.file-chosen{
+  margin-top:12px;
+
+  font-size:13px;
+
+  color:#BEBEBE;
+
+  display:none;
+}
+
+/* TEXT INPUT */
+
+textarea.text-input{
+  width:100%;
+
+  border:1px solid var(--border-strong);
+
+  border-radius:12px;
+
+  padding:14px;
+
+  font-family:inherit;
+
+  font-size:13.5px;
+
+  resize:vertical;
+
+  min-height:160px;
+
+  color:#F2F2F2;
+
+  background:#0C0C0C;
+
+  transition:.2s ease;
+}
+
+textarea.text-input::placeholder{
+  color:#5F5F5F;
+}
+
+textarea.text-input:focus{
+  outline:none;
+
+  border-color:var(--red);
+
+  box-shadow:
+    0 0 0 3px rgba(229,9,20,.12),
+    0 0 25px rgba(229,9,20,.05);
+}
+
+/* OUTPUT FORMAT CHIPS */
+
+.t-chip-grid{
+  display:grid;
+
+  grid-template-columns:repeat(5,1fr);
+
+  gap:10px;
+}
+
+.t-chip{
+  padding:14px 8px;
+
+  text-align:center;
+
+  border-radius:12px;
+
+  border:1px solid var(--border);
+
+  background:#121212;
+
+  cursor:pointer;
+
+  transition:.2s ease;
+
+  color:#ddd;
+}
+
+.t-chip:hover{
+  border-color:#555;
+
+  background:#191919;
+
+  transform:translateY(-1px);
+}
+
+.t-chip .ic{
+  font-size:19px;
+
+  margin-bottom:6px;
+}
+
+.t-chip span{
+  display:block;
+
+  font-size:11.5px;
+
+  font-weight:600;
+
+  color:#999;
+}
+
+.t-chip.active{
+  border-color:var(--red);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(229,9,20,.16),
+      rgba(229,9,20,.04)
+    );
+
+  box-shadow:
+    0 0 0 3px rgba(229,9,20,.08),
+    0 8px 20px rgba(0,0,0,.25);
+}
+
+.t-chip.active span{
+  color:#fff;
+}
+
+/* FIELDS */
+
+.field{
+  margin-bottom:18px;
+}
+
+.field-label{
+  font-size:13px;
+
+  font-weight:600;
+
+  margin-bottom:8px;
+
+  display:block;
+
+  color:#E5E5E5;
+}
+
+select.select-input,
+input.text-field{
+  width:100%;
+
+  padding:11px 14px;
+
+  border-radius:11px;
+
+  border:1px solid var(--border-strong);
+
+  background:#0E0E0E;
+
+  font-size:13.5px;
+
+  color:#F1F1F1;
+
+  font-family:inherit;
+}
+
+select.select-input option{
+  background:#111;
+
+  color:#fff;
+}
+
+select.select-input:focus,
+input.text-field:focus{
+  outline:none;
+
+  border-color:var(--red);
+
+  box-shadow:
+    0 0 0 3px rgba(229,9,20,.10);
+}
+
+input.text-field::placeholder{
+  color:#666;
+}
+
+/* LANGUAGE FIELD */
+
+.language-field{
+  position:relative;
+}
+
+.language-field select{
+  border-color:rgba(229,9,20,.45);
+
+  box-shadow:
+    0 0 0 2px rgba(229,9,20,.06);
+}
+
+.language-hint{
+  margin-top:8px;
+
+  padding:8px 10px;
+
+  border-radius:9px;
+
+  background:rgba(229,9,20,.07);
+
+  border:1px solid rgba(229,9,20,.15);
+
+  color:#BDBDBD;
+
+  font-size:11.5px;
+}
+
+/* SEGMENTED */
+
+.segmented{
+  display:flex;
+
+  background:#101010;
+
+  border:1px solid var(--border);
+
+  border-radius:12px;
+
+  padding:4px;
+
+  gap:2px;
+}
+
+.segmented button{
+  flex:1;
+
+  border:none;
+
+  background:transparent;
+
+  padding:9px 6px;
+
+  border-radius:9px;
+
+  font-size:12.5px;
+
+  font-weight:600;
+
+  color:#888;
+
+  transition:.2s ease;
+}
+
+.segmented button:hover{
+  color:#ddd;
+
+  background:#181818;
+}
+
+.segmented button.active{
+  background:#252525;
+
+  color:#fff;
+
+  box-shadow:
+    0 1px 4px rgba(0,0,0,.4);
+
+  border:1px solid rgba(229,9,20,.25);
+}
+
+/* PARAMETERS */
+
+.params-grid{
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:18px 24px;
+}
+
+/* ERROR */
+
+.error-banner{
+  background:
+    rgba(229,9,20,.10);
+
+  border:1px solid rgba(229,9,20,.35);
+
+  color:#FF6B73;
+
+  padding:12px 16px;
+
+  border-radius:12px;
+
+  font-size:13px;
+
+  margin-top:16px;
+
+  display:none;
+}
+
+/* OVERLAY */
+
+.overlay{
+  position:fixed;
+
+  inset:0;
+
+  background:
+    rgba(0,0,0,.82);
+
+  backdrop-filter:blur(7px);
+
+  display:none;
+
+  align-items:center;
+
+  justify-content:center;
+
+  z-index:100;
+
+  flex-direction:column;
+}
+
+.overlay.active{
+  display:flex;
+}
+
+.overlay-core{
+  width:70px;
+
+  height:70px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      #fff,
+      #FF5A62 35%,
+      #E50914 65%,
+      #69040A 100%
+    );
+
+  box-shadow:
+    0 0 25px rgba(229,9,20,.8),
+    0 0 70px rgba(229,9,20,.35);
+
+  margin-bottom:24px;
+
+  animation:corepulse 1.6s ease-in-out infinite;
+}
+
+@keyframes corepulse{
+  0%,100%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.08);
+  }
+}
+
+.overlay-card{
+  text-align:center;
+
+  color:#fff;
+
+  max-width:340px;
+}
+
+.overlay-card h3{
+  font-size:17px;
+
+  margin-bottom:6px;
+}
+
+.overlay-status{
+  font-size:13px;
+
+  color:rgba(255,255,255,.68);
+
+  min-height:20px;
+}
+
+.progress-track{
+  width:260px;
+
+  height:6px;
+
+  border-radius:99px;
+
+  background:rgba(255,255,255,.10);
+
+  margin-top:18px;
+
+  overflow:hidden;
+
+  border:1px solid rgba(255,255,255,.05);
+}
+
+.progress-fill{
+  height:100%;
+
+  width:10%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #9B050D,
+      #E50914,
+      #FF4A55
+    );
+
+  border-radius:99px;
+
+  transition:width .4s ease;
+
+  box-shadow:
+    0 0 12px rgba(229,9,20,.65);
+}
+
+/* RESULTS HEADER */
+
+.results-head{
+  text-align:center;
+
+  max-width:620px;
+
+  margin:6px auto 26px;
+}
+
+.results-badge{
+  width:52px;
+
+  height:52px;
+
+  border-radius:16px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #9D0710,
+      #E50914,
+      #FF3946
+    );
+
+  margin:0 auto 14px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  color:#fff;
+
+  font-size:22px;
+
+  box-shadow:
+    0 10px 30px rgba(229,9,20,.30);
+}
+
+.results-head h2{
+  font-size:20px;
+
+  margin-bottom:6px;
+}
+
+.results-head p{
+  color:var(--text-muted);
+
+  font-size:13.5px;
+}
+
+/* LANGUAGE RESULT STRIP */
+
+.result-language{
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:7px;
+
+  margin-top:12px;
+
+  padding:7px 12px;
+
+  border-radius:99px;
+
+  background:rgba(229,9,20,.08);
+
+  border:1px solid rgba(229,9,20,.18);
+
+  color:#FF6B73;
+
+  font-size:12px;
+
+  font-weight:600;
+}
+
+/* CONSISTENCY */
+
+.consistency-note{
+  font-size:12px;
+
+  margin-top:8px;
+
+  padding:4px 10px;
+
+  border-radius:99px;
+
+  display:inline-flex;
+
+  gap:6px;
+
+  align-items:center;
+}
+
+.consistency-ok{
+  background:rgba(34,197,94,.10);
+
+  color:#4ADE80;
+
+  border:1px solid rgba(34,197,94,.18);
+}
+
+.consistency-flag{
+  background:rgba(245,158,11,.10);
+
+  color:#FBBF24;
+
+  border:1px solid rgba(245,158,11,.18);
+}
+
+/* RESULTS GRID */
+
+.results-grid{
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:18px;
+}
+
+.result-card{
+  padding:22px;
+
+  transition:
+    transform .2s ease,
+    border .2s ease,
+    box-shadow .2s ease;
+}
+
+.result-card:hover{
+  transform:translateY(-2px);
+
+  border-color:#3A3A3A;
+
+  box-shadow:
+    0 18px 35px rgba(0,0,0,.35);
+}
+
+.result-card-head{
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  margin-bottom:14px;
+}
+
+.result-card-head h3{
+  font-size:15px;
+
+  color:#fff;
+}
+
+.result-badge{
+  font-size:11px;
+
+  font-weight:700;
+
+  padding:3px 9px;
+
+  border-radius:99px;
+
+  background:
+    rgba(229,9,20,.10);
+
+  color:#FF4A55;
+
+  border:1px solid rgba(229,9,20,.20);
+
+  text-transform:uppercase;
+
+  letter-spacing:.03em;
+}
+
+.result-badge.live{
+  background:rgba(34,197,94,.10);
+
+  color:#4ADE80;
+
+  border-color:rgba(34,197,94,.20);
+}
+
+.result-badge.fallback{
+  background:rgba(245,158,11,.10);
+
+  color:#FBBF24;
+
+  border-color:rgba(245,158,11,.20);
+}
+
+.result-body{
+  font-size:13px;
+
+  color:#E1E1E1;
+
+  line-height:1.65;
+}
+
+.result-body h5{
+  font-size:12.5px;
+
+  font-weight:700;
+
+  margin:12px 0 4px;
+
+  color:#999;
+}
+
+.result-body h5:first-child{
+  margin-top:0;
+}
+
+.result-body ul{
+  margin:0;
+
+  padding-left:18px;
+}
+
+.result-body li{
+  margin-bottom:3px;
+}
+
+.result-body .slide-block{
+  margin-bottom:12px;
+
+  padding-bottom:12px;
+
+  border-bottom:1px solid var(--border);
+}
+
+.result-body .slide-block:last-child{
+  border-bottom:none;
+
+  margin-bottom:0;
+
+  padding-bottom:0;
+}
+
+.copy-btn{
+  font-size:11.5px;
+
+  font-weight:600;
+
+  color:#FF4A55;
+
+  background:none;
+
+  border:none;
+
+  padding:0;
+
+  transition:.2s ease;
+}
+
+.copy-btn:hover{
+  color:#FF7B83;
+
+  text-decoration:underline;
+}
+
+/* EMPTY STATE */
+
+.empty-state{
+  text-align:center;
+
+  padding:60px 20px;
+
+  color:#686868;
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+  width:8px;
+}
+
+::-webkit-scrollbar-track{
+  background:#080808;
+}
+
+::-webkit-scrollbar-thumb{
+  background:#333;
+
+  border-radius:99px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background:#555;
+}
+
+/* RESPONSIVE */
+
+@media (max-width:900px){
+
+  .sidebar{
+    display:none;
+  }
+
+  .params-grid{
+    grid-template-columns:1fr;
+  }
+
+  .t-chip-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .results-grid{
+    grid-template-columns:1fr;
+  }
+
+  .content{
+    padding:20px 16px 40px;
+  }
+
+  .hero{
+    padding:28px 24px;
+  }
+
+  .hero h1{
+    font-size:24px;
+  }
+
+}
+
+@media (max-width:600px){
+
+  .topbar{
+    padding:0 16px;
+  }
+
+  .t-chip-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .hero h1{
+    font-size:22px;
+  }
+
+  .hero p{
+    font-size:13px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <div class="brand">
+
+      <div class="brand-mark">
+        T
+      </div>
+
+      <div>
+
+        <div class="brand-name">
+          TransformAI
+        </div>
+
+        <div class="brand-tag">
+          Challenge 25
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="nav-label">
+      MENU
+    </div>
+
+    <button
+      class="nav-item active"
+      data-view="workspace"
+    >
+      ▦ Workspace
+    </button>
+
+    <button
+      class="nav-item"
+      data-view="results"
+    >
+      ▤ Results
+    </button>
+
+    <div class="sidebar-spacer"></div>
+
+    <div class="status-card">
+
+      <div>
+
+        <span
+          class="dot"
+          id="modeDot"
+          style="background:#F59E0B;"
+        ></span>
+
+        <span
+          id="modeLabel"
+          style="font-size:12px;font-weight:600;"
+        >
+          Checking Gemini…
+        </span>
+
+      </div>
+
+      <h4>
+        Multilingual AI transformation
+      </h4>
+
+      <p id="modeDetail">
+        Connecting to Gemini AI…
+      </p>
+
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+
+  <div class="main-col">
+
+    <header class="topbar">
+
+      <h2>
+        TransformAI
+      </h2>
+
+      <div class="topbar-spacer"></div>
+
+      <span
+        class="pill pill-green"
+        id="topbarPill"
+      >
+        ● Ready
+      </span>
+
+    </header>
+
+    <main class="content">
+
+      <!-- WORKSPACE -->
+
+      <section
+        class="view active"
+        id="view-workspace"
+      >
+
+        <div class="hero">
+
+          <div class="hero-eyebrow">
+            ✨ Challenge 25 · AI Content Transformation
+          </div>
+
+          <h1>
+            One Source. Every Language. Every Format.
+          </h1>
+
+          <p>
+            Transform one source into slides, social posts,
+            advisories, video scripts and infographics while
+            preserving the same facts, context and message
+            across languages.
+          </p>
+
+          <div class="language-feature">
+
+            <span class="active-lang">
+              🌐 English
+            </span>
+
+            <span>
+              தமிழ் Tamil
+            </span>
+
+            <span>
+              हिन्दी Hindi
+            </span>
+
+            <span>
+              Español
+            </span>
+
+            <span>
+              Français
+            </span>
+
+          </div>
+
+        </div>
+
+        <!-- SOURCE -->
+
+        <div
+          class="card"
+          style="padding:28px;"
+        >
+
+          <div
+            class="section-title"
+            style="margin-top:0;"
+          >
+            1. Source material
+          </div>
+
+          <div class="input-toggle">
+
+            <button
+              class="active"
+              data-mode="paste"
+            >
+              Paste text
+            </button>
+
+            <button
+              data-mode="file"
+            >
+              Upload file
+            </button>
+
+          </div>
+
+          <div id="pasteMode">
+
+            <textarea
+              class="text-input"
+              id="sourceText"
+              placeholder="Paste a news article, report, advisory, research summary, incident report, announcement, or free-form notes here…"
+            ></textarea>
+
+          </div>
+
+          <div
+            id="fileMode"
+            style="display:none;"
+          >
+
+            <div
+              class="dropzone"
+              id="dropzone"
+            >
+
+              <div class="dropzone-icon">
+                ⇧
+              </div>
+
+              <h4>
+                Drop a .txt file here,
+                or
+                <span class="browse">
+                  browse
+                </span>
+              </h4>
+
+              <p class="hint">
+                Plain text files work best.
+              </p>
+
+              <div
+                class="file-chosen"
+                id="fileChosen"
+              ></div>
+
+            </div>
+
+            <input
+              type="file"
+              id="fileInput"
+              accept=".txt,text/plain"
+              style="display:none;"
+            >
+
+          </div>
+
+          <!-- OUTPUT -->
+
+          <div class="section-title">
+            2. Output formats
+          </div>
+
+          <div
+            class="t-chip-grid"
+            id="formatGrid"
+          ></div>
+
+          <!-- PARAMETERS -->
+
+          <div class="section-title">
+            3. Delivery parameters
+          </div>
+
+          <div class="params-grid">
+
+            <div class="field">
+
+              <label class="field-label">
+                Audience
+              </label>
+
+              <select
+                class="select-input"
+                id="paramAudience"
+              >
+
+                <option>
+                  Executives
+                </option>
+
+                <option selected>
+                  Students
+                </option>
+
+                <option>
+                  Employees
+                </option>
+
+                <option>
+                  Customers
+                </option>
+
+                <option>
+                  General Public
+                </option>
+
+              </select>
+
+            </div>
+
+            <div class="field">
+
+              <label class="field-label">
+                Tone
+              </label>
+
+              <div
+                class="segmented"
+                data-field="tone"
+              >
+
+                <button
+                  class="active"
+                  data-value="Formal"
+                >
+                  Formal
+                </button>
+
+                <button
+                  data-value="Reassuring"
+                >
+                  Reassuring
+                </button>
+
+                <button
+                  data-value="Urgent"
+                >
+                  Urgent
+                </button>
+
+                <button
+                  data-value="Conversational"
+                >
+                  Casual
+                </button>
+
+              </div>
+
+            </div>
+
+            <!-- LANGUAGE -->
+
+            <div class="field language-field">
+
+              <label class="field-label">
+                🌐 Output Language
+              </label>
+
+              <select
+                class="select-input"
+                id="paramLanguage"
+              >
+
+                <option selected>
+                  English
+                </option>
+
+                <option>
+                  Tamil
+                </option>
+
+                <option>
+                  Hindi
+                </option>
+
+                <option>
+                  Spanish
+                </option>
+
+                <option>
+                  French
+                </option>
+
+              </select>
+
+              <div class="language-hint">
+                🌐 All selected formats will be generated in this language.
+              </div>
+
+            </div>
+
+            <div class="field">
+
+              <label class="field-label">
+                Detail level
+              </label>
+
+              <div
+                class="segmented"
+                data-field="detail"
+              >
+
+                <button
+                  data-value="Brief"
+                >
+                  Brief
+                </button>
+
+                <button
+                  class="active"
+                  data-value="Standard"
+                >
+                  Standard
+                </button>
+
+                <button
+                  data-value="Comprehensive"
+                >
+                  Comprehensive
+                </button>
+
+              </div>
+
+            </div>
+
+            <div class="field">
+
+              <label class="field-label">
+                Communication objective
+              </label>
+
+              <select
+                class="select-input"
+                id="paramObjective"
+              >
+
+                <option selected>
+                  Inform
+                </option>
+
+                <option>
+                  Persuade
+                </option>
+
+                <option>
+                  Alert
+                </option>
+
+                <option>
+                  Train
+                </option>
+
+              </select>
+
+            </div>
+
+            <div class="field">
+
+              <label class="field-label">
+                Content style
+              </label>
+
+              <input
+                class="text-field"
+                id="paramStyle"
+                value="Plain language"
+                placeholder="e.g. Brand voice, Technical, Plain language"
+              >
+
+            </div>
+
+          </div>
+
+          <button
+            class="btn btn-primary btn-block"
+            id="generateBtn"
+          >
+            ⚡ Transform with AI
+          </button>
+
+          <div
+            class="error-banner"
+            id="errorBanner"
+          ></div>
+
+        </div>
+
+      </section>
+
+      <!-- RESULTS -->
+
+      <section
+        class="view"
+        id="view-results"
+      >
+
+        <div
+          class="results-head"
+          id="resultsHead"
+          style="display:none;"
+        >
+
+          <div class="results-badge">
+            ✓
+          </div>
+
+          <h2>
+            Your multilingual deliverables are ready
+          </h2>
+
+          <p id="resultsSubline"></p>
+
+          <div
+            class="result-language"
+            id="resultLanguage"
+          >
+            🌐 Output language: English
+          </div>
+
+        </div>
+
+        <div
+          class="empty-state"
+          id="resultsEmpty"
+        >
+          Nothing generated yet — head to the Workspace tab to get started.
+        </div>
+
+        <div
+          class="results-grid"
+          id="resultsGrid"
+        ></div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+</div>
+
+<!-- GENERATION OVERLAY -->
+
+<div
+  class="overlay"
+  id="overlay"
+>
+
+  <div class="overlay-core"></div>
+
+  <div class="overlay-card">
+
+    <h3>
+      Transforming your content…
+    </h3>
+
+    <div
+      class="overlay-status"
+      id="overlayStatus"
+    >
+      Reading source material…
+    </div>
+
+    <div class="progress-track">
+
+      <div
+        class="progress-fill"
+        id="progressFill"
+      ></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+/* =========================================================
+   FORMAT METADATA
+========================================================= */
+
+const FORMAT_META = {
+
+  slide:{
+    label:'Slide Deck',
+    icon:'▦'
+  },
+
+  social:{
+    label:'Social Post',
+    icon:'💬'
+  },
+
+  advisory:{
+    label:'Advisory',
+    icon:'🛡'
+  },
+
+  video:{
+    label:'Video Script',
+    icon:'🎬'
+  },
+
+  infographic:{
+    label:'Infographic',
+    icon:'◔'
+  }
+
+};
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+const state = {
+
+  formats:new Set([
+    'slide',
+    'social'
+  ]),
+
+  params:{
+    tone:'Formal',
+    detail:'Standard'
+  },
+
+  inputMode:'paste',
+
+  file:null
+
+};
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+document
+  .querySelectorAll('.nav-item')
+  .forEach((btn)=>{
+
+    btn.addEventListener(
+      'click',
+      ()=>{
+        showView(btn.dataset.view);
+      }
+    );
+
+  });
+
+
+function showView(name){
+
+  document
+    .querySelectorAll('.nav-item')
+    .forEach((b)=>{
+
+      b.classList.toggle(
+        'active',
+        b.dataset.view === name
+      );
+
+    });
+
+  document
+    .querySelectorAll('.view')
+    .forEach((v)=>{
+
+      v.classList.toggle(
+        'active',
+        v.id === 'view-' + name
+      );
+
+    });
+
+}
+
+
+/* =========================================================
+   INPUT MODE
+========================================================= */
+
+document
+  .querySelectorAll('.input-toggle button')
+  .forEach((btn)=>{
+
+    btn.addEventListener(
+      'click',
+      ()=>{
+
+        document
+          .querySelectorAll('.input-toggle button')
+          .forEach((b)=>{
+            b.classList.remove('active');
+          });
+
+        btn.classList.add('active');
+
+        state.inputMode =
+          btn.dataset.mode;
+
+        document
+          .getElementById('pasteMode')
+          .style.display =
+          state.inputMode === 'paste'
+            ? 'block'
+            : 'none';
+
+        document
+          .getElementById('fileMode')
+          .style.display =
+          state.inputMode === 'file'
+            ? 'block'
+            : 'none';
+
+      }
+    );
+
+  });
+
+
+/* =========================================================
+   FILE UPLOAD
+========================================================= */
+
+const dropzone =
+  document.getElementById('dropzone');
+
+const fileInput =
+  document.getElementById('fileInput');
+
+
+dropzone.addEventListener(
+  'click',
+  ()=>{
+    fileInput.click();
+  }
+);
+
+
+dropzone.addEventListener(
+  'dragover',
+  (e)=>{
+
+    e.preventDefault();
+
+    dropzone.style.borderColor =
+      'var(--red)';
+
+  }
+);
+
+
+dropzone.addEventListener(
+  'dragleave',
+  ()=>{
+
+    dropzone.style.borderColor =
+      '';
+
+  }
+);
+
+
+dropzone.addEventListener(
+  'drop',
+  (e)=>{
+
+    e.preventDefault();
+
+    dropzone.style.borderColor =
+      '';
+
+    if(e.dataTransfer.files[0]){
+      handleFile(
+        e.dataTransfer.files[0]
+      );
+    }
+
+  }
+);
+
+
+fileInput.addEventListener(
+  'change',
+  ()=>{
+
+    if(fileInput.files[0]){
+      handleFile(
+        fileInput.files[0]
+      );
+    }
+
+  }
+);
+
+
+function handleFile(f){
+
+  state.file = f;
+
+  const chosen =
+    document.getElementById(
+      'fileChosen'
+    );
+
+  chosen.style.display =
+    'block';
+
+  chosen.textContent =
+    '📄 ' +
+    f.name +
+    ' (' +
+    Math.round(f.size / 1024) +
+    ' KB)';
+
+}
+
+
+/* =========================================================
+   FORMAT GRID
+========================================================= */
+
+const formatGrid =
+  document.getElementById(
+    'formatGrid'
+  );
+
+
+Object
+  .entries(FORMAT_META)
+  .forEach(([key,meta])=>{
+
+    const chip =
+      document.createElement(
+        'button'
+      );
+
+    chip.className =
+      't-chip' +
+      (
+        state.formats.has(key)
+          ? ' active'
+          : ''
+      );
+
+    chip.dataset.key =
+      key;
+
+    chip.innerHTML =
+      `
+        <div class="ic">
+          ${meta.icon}
+        </div>
+
+        <span>
+          ${meta.label}
+        </span>
+      `;
+
+    chip.addEventListener(
+      'click',
+      ()=>{
+
+        if(
+          state.formats.has(key)
+        ){
+
+          state.formats.delete(key);
+
+          chip.classList.remove(
+            'active'
+          );
+
+        }else{
+
+          state.formats.add(key);
+
+          chip.classList.add(
+            'active'
+          );
+
+        }
+
+      }
+    );
+
+    formatGrid.appendChild(
+      chip
+    );
+
+  });
+
+
+/* =========================================================
+   SEGMENTED CONTROLS
+========================================================= */
+
+document
+  .querySelectorAll('.segmented')
+  .forEach((seg)=>{
+
+    const field =
+      seg.dataset.field;
+
+    seg
+      .querySelectorAll('button')
+      .forEach((btn)=>{
+
+        btn.addEventListener(
+          'click',
+          ()=>{
+
+            seg
+              .querySelectorAll('button')
+              .forEach((b)=>{
+                b.classList.remove(
+                  'active'
+                );
+              });
+
+            btn.classList.add(
+              'active'
+            );
+
+            state.params[field] =
+              btn.dataset.value;
+
+          }
+        );
+
+      });
+
+  });
+
+
+/* =========================================================
+   GEMINI HEALTH
+========================================================= */
+
+fetch('/api/health')
+
+  .then((r)=>r.json())
+
+  .then((data)=>{
+
+    const dot =
+      document.getElementById(
+        'modeDot'
+      );
+
+    const label =
+      document.getElementById(
+        'modeLabel'
+      );
+
+    const detail =
+      document.getElementById(
+        'modeDetail'
+      );
+
+    const pill =
+      document.getElementById(
+        'topbarPill'
+      );
+
+
+    if(data.mode === 'live'){
+
+      dot.style.background =
+        '#22C55E';
+
+      label.textContent =
+        'LIVE — Gemini API';
+
+      detail.textContent =
+        'Gemini AI generation is available.';
+
+      pill.textContent =
+        '● Gemini AI';
+
+      pill.className =
+        'pill pill-green';
+
+    }else{
+
+      dot.style.background =
+        '#F59E0B';
+
+      label.textContent =
+        'Gemini unavailable';
+
+      detail.textContent =
+        'Protected by local fallback.';
+
+      pill.textContent =
+        '● Fallback ready';
+
+      pill.className =
+        'pill pill-amber';
+
+    }
+
+  })
+
+  .catch(()=>{
+
+    document
+      .getElementById('modeLabel')
+      .textContent =
+      'Server unreachable';
+
+    document
+      .getElementById('modeDetail')
+      .textContent =
+      'Start the TransformAI server.';
+
+    document
+      .getElementById('topbarPill')
+      .textContent =
+      '● Offline';
+
+    document
+      .getElementById('topbarPill')
+      .className =
+      'pill pill-amber';
+
+  });
+
+
+/* =========================================================
+   GENERATION
+========================================================= */
+
+const overlay =
+  document.getElementById(
+    'overlay'
+  );
+
+const overlayStatus =
+  document.getElementById(
+    'overlayStatus'
+  );
+
+const progressFill =
+  document.getElementById(
+    'progressFill'
+  );
+
+const errorBanner =
+  document.getElementById(
+    'errorBanner'
+  );
+
+
+const STAGES = [
+
+  'Reading source material…',
+
+  'Extracting facts & context…',
+
+  'Applying language and audience…',
+
+  'Generating every selected format…',
+
+  'Checking consistency…',
+
+  'Finishing up…'
+
+];
+
+
+document
+  .getElementById('generateBtn')
+  .addEventListener(
+    'click',
+    async ()=>{
+
+      errorBanner.style.display =
+        'none';
+
+      const formats =
+        [...state.formats];
+
+
+      if(formats.length === 0){
+
+        errorBanner.textContent =
+          'Pick at least one output format.';
+
+        errorBanner.style.display =
+          'block';
+
+        return;
+
+      }
+
+
+      const params = {
+
+        audience:
+          document
+            .getElementById(
+              'paramAudience'
+            )
+            .value,
+
+        tone:
+          state.params.tone,
+
+        language:
+          document
+            .getElementById(
+              'paramLanguage'
+            )
+            .value,
+
+        detail:
+          state.params.detail,
+
+        objective:
+          document
+            .getElementById(
+              'paramObjective'
+            )
+            .value,
+
+        style:
+          document
+            .getElementById(
+              'paramStyle'
+            )
+            .value
+
+      };
+
+
+      overlay.classList.add(
+        'active'
+      );
+
+      let stage = 0;
+
+      progressFill.style.width =
+        '8%';
+
+
+      const stageTimer =
+        setInterval(
+          ()=>{
+
+            stage =
+              Math.min(
+                stage + 1,
+                STAGES.length - 1
+              );
+
+            overlayStatus.textContent =
+              STAGES[stage];
+
+            progressFill.style.width =
+              (10 + stage * 17) +
+              '%';
+
+          },
+          900
+        );
+
+
+      try{
+
+        let res;
+
+
+        /* FILE */
+
+        if(
+          state.inputMode === 'file' &&
+          state.file
+        ){
+
+          const fd =
+            new FormData();
+
+          fd.append(
+            'file',
+            state.file
+          );
+
+          fd.append(
+            'payload',
+            JSON.stringify({
+              params,
+              formats
+            })
+          );
+
+          res =
+            await fetch(
+              '/api/transform',
+              {
+                method:'POST',
+                body:fd
+              }
+            );
+
+        }
+
+        /* TEXT */
+
+        else{
+
+          const source =
+            document
+              .getElementById(
+                'sourceText'
+              )
+              .value;
+
+
+          if(!source.trim()){
+
+            throw new Error(
+              'Paste some source text first, or switch to file upload.'
+            );
+
+          }
+
+
+          res =
+            await fetch(
+              '/api/transform',
+              {
+
+                method:'POST',
+
+                headers:{
+                  'content-type':
+                    'application/json'
+                },
+
+                body:
+                  JSON.stringify({
+                    source,
+                    params,
+                    formats
+                  })
+
+              }
+            );
+
+        }
+
+
+        const data =
+          await res.json();
+
+
+        if(!data.ok){
+
+          throw new Error(
+            data.error ||
+            'Transformation failed.'
+          );
+
+        }
+
+
+        progressFill.style.width =
+          '100%';
+
+
+        renderResults(
+          data,
+          formats,
+          params.language
+        );
+
+
+        showView(
+          'results'
+        );
+
+
+      }catch(err){
+
+        errorBanner.textContent =
+          err.message;
+
+        errorBanner.style.display =
+          'block';
+
+      }finally{
+
+        clearInterval(
+          stageTimer
+        );
+
+        overlay.classList.remove(
+          'active'
+        );
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function esc(s){
+
+  return String(
+    s == null ? '' : s
+  ).replace(
+    /[&<>]/g,
+    (c)=>({
+
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;'
+
+    }[c])
+  );
+
+}
+
+
+/* =========================================================
+   RESULTS
+========================================================= */
+
+function renderResults(
+  data,
+  formats,
+  language
+){
+
+  const grid =
+    document.getElementById(
+      'resultsGrid'
+    );
+
+  grid.innerHTML =
+    '';
+
+
+  document
+    .getElementById(
+      'resultsEmpty'
+    )
+    .style.display =
+    'none';
+
+
+  document
+    .getElementById(
+      'resultsHead'
+    )
+    .style.display =
+    'block';
+
+
+  document
+    .getElementById(
+      'resultsSubline'
+    )
+    .textContent =
+
+    (
+      data.mode === 'live'
+        ? 'Generated live with Gemini AI'
+        : 'Generated using the protected local fallback'
+    )
+
+    +
+
+    ' — all outputs are grounded in one shared fact graph.';
+
+
+  document
+    .getElementById(
+      'resultLanguage'
+    )
+    .textContent =
+    '🌐 Output language: ' +
+    language;
+
+
+  formats.forEach(
+    (key)=>{
+
+      const r =
+        data.results[key];
+
+      if(!r){
+        return;
+      }
+
+
+      const meta =
+        FORMAT_META[key];
+
+
+      const card =
+        document.createElement(
+          'div'
+        );
+
+
+      card.className =
+        'card result-card';
+
+
+      const consistency =
+        r.consistency ||
+        {
+          ok:true,
+          flagged_numbers:[]
+        };
+
+
+      const consistencyHtml =
+        consistency.ok
+
+          ?
+
+          `<span class="consistency-note consistency-ok">
+            ✓ Consistent
+          </span>`
+
+          :
+
+          `<span class="consistency-note consistency-flag">
+            ⚠ ${(
+              consistency.flagged_numbers || []
+            ).length}
+            unverified number(s)
+          </span>`;
+
+
+      const isLive =
+        r.mode === 'live';
+
+
+      card.innerHTML = `
+
+        <div class="result-card-head">
+
+          <h3>
+            ${meta.icon}
+            ${meta.label}
+          </h3>
+
+          <span class="result-badge ${isLive ? 'live' : 'fallback'}">
+            ${isLive ? 'AI' : 'FALLBACK'}
+          </span>
+
+        </div>
+
+
+        <div class="result-body">
+
+          ${renderFormatBody(
+            key,
+            r.output
+          )}
+
+        </div>
+
+
+        <div
+          style="
+            margin-top:14px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:10px;
+          "
+        >
+
+          ${consistencyHtml}
+
+
+          <button
+            class="copy-btn"
+            data-copy="${key}"
+          >
+            Copy as text
+          </button>
+
+        </div>
+
+      `;
+
+
+      grid.appendChild(
+        card
+      );
+
+    }
+  );
+
+
+  /* COPY */
+
+  grid
+    .querySelectorAll(
+      '.copy-btn'
+    )
+    .forEach((btn)=>{
+
+      btn.addEventListener(
+        'click',
+        ()=>{
+
+          const key =
+            btn.dataset.copy;
+
+
+          const text =
+            formatAsPlainText(
+              key,
+              data.results[key].output
+            );
+
+
+          navigator.clipboard
+            .writeText(text)
+            .then(()=>{
+
+              const old =
+                btn.textContent;
+
+
+              btn.textContent =
+                'Copied!';
+
+
+              setTimeout(
+                ()=>{
+                  btn.textContent =
+                    old;
+                },
+                1200
+              );
+
+            });
+
+        }
+      );
+
+    });
+
+}
+
+
+/* =========================================================
+   FORMAT BODY
+========================================================= */
+
+function renderFormatBody(
+  key,
+  out
+){
+
+  out =
+    out || {};
+
+
+  switch(key){
+
+    /* SLIDE */
+
+    case 'slide':
+
+      return (out.slides || [])
+        .map(
+          (s)=>`
+
+            <div class="slide-block">
+
+              <h5>
+                ${esc(s.title)}
+              </h5>
+
+              <ul>
+
+                ${(s.bullets || [])
+                  .map(
+                    (b)=>`
+                      <li>
+                        ${esc(b)}
+                      </li>
+                    `
+                  )
+                  .join('')
+                }
+
+              </ul>
+
+            </div>
+
+          `
+        )
+        .join('');
+
+
+    /* SOCIAL */
+
+    case 'social':
+
+      return `
+
+        <p>
+          ${esc(out.post)}
+        </p>
+
+        ${
+          (out.hashtags || []).length
+            ? `
+              <h5>
+                Hashtags
+              </h5>
+
+              <p>
+                ${(out.hashtags || [])
+                  .map(
+                    (h)=>'#' + esc(h)
+                  )
+                  .join('  ')
+                }
+              </p>
+            `
+            : ''
+        }
+
+      `;
+
+
+    /* ADVISORY */
+
+    case 'advisory':
+
+      return `
+
+        <h5>
+          Headline
+        </h5>
+
+        <p>
+          ${esc(out.headline)}
+        </p>
+
+
+        <h5>
+          Summary
+        </h5>
+
+        <p>
+          ${esc(out.summary)}
+        </p>
+
+
+        <h5>
+          Guidance
+        </h5>
+
+        <ul>
+
+          ${(out.guidance || [])
+            .map(
+              (g)=>`
+                <li>
+                  ${esc(g)}
+                </li>
+              `
+            )
+            .join('')
+          }
+
+        </ul>
+
+
+        <h5>
+          Next steps
+        </h5>
+
+        <p>
+          ${esc(out.nextSteps)}
+        </p>
+
+      `;
+
+
+    /* VIDEO */
+
+    case 'video':
+
+      return (out.scenes || [])
+        .map(
+          (s,i)=>`
+
+            <div class="slide-block">
+
+              <h5>
+                Scene ${i + 1} — Visual
+              </h5>
+
+              <p>
+                ${esc(s.visual)}
+              </p>
+
+
+              <h5>
+                Narration
+              </h5>
+
+              <p>
+                ${esc(s.narration)}
+              </p>
+
+            </div>
+
+          `
+        )
+        .join('');
+
+
+    /* INFOGRAPHIC */
+
+    case 'infographic':
+
+      return `
+
+        <h5>
+          ${esc(out.title)}
+        </h5>
+
+
+        <ul>
+
+          ${(out.callouts || [])
+            .map(
+              (c)=>`
+
+                <li>
+
+                  <strong>
+                    ${esc(c.value)}
+                  </strong>
+
+                  —
+                  ${esc(c.label)}
+
+                </li>
+
+              `
+            )
+            .join('')
+          }
+
+        </ul>
+
+
+        <h5>
+          Takeaway
+        </h5>
+
+        <p>
+          ${esc(out.takeaway)}
+        </p>
+
+      `;
+
+
+    default:
+
+      return `
+        <pre>
+          ${esc(
+            JSON.stringify(
+              out,
+              null,
+              2
+            )
+          )}
+        </pre>
+      `;
+
+  }
+
+}
+
+
+/* =========================================================
+   COPY AS TEXT
+========================================================= */
+
+function formatAsPlainText(
+  key,
+  out
+){
+
+  out =
+    out || {};
+
+
+  if(key === 'slide'){
+
+    return (out.slides || [])
+      .map(
+        (s)=>
+          `${s.title}\n` +
+
+          (s.bullets || [])
+            .map(
+              (b)=>`- ${b}`
+            )
+            .join('\n')
+      )
+      .join('\n\n');
+
+  }
+
+
+  if(key === 'social'){
+
+    return (
+      `${out.post || ''}\n\n` +
+
+      (out.hashtags || [])
+        .map(
+          (h)=>'#' + h
+        )
+        .join(' ')
+    );
+
+  }
+
+
+  if(key === 'advisory'){
+
+    return (
+
+      `${out.headline || ''}\n\n` +
+
+      `${out.summary || ''}\n\n` +
+
+      (out.guidance || [])
+        .map(
+          (g)=>`- ${g}`
+        )
+        .join('\n') +
+
+      `\n\n${out.nextSteps || ''}`
+
+    );
+
+  }
+
+
+  if(key === 'video'){
+
+    return (out.scenes || [])
+      .map(
+        (s,i)=>
+
+          `Scene ${i + 1}\n` +
+
+          `[VISUAL] ${s.visual || ''}\n` +
+
+          `[NARRATION] ${s.narration || ''}`
+
+      )
+      .join('\n\n');
+
+  }
+
+
+  if(key === 'infographic'){
+
+    return (
+
+      `${out.title || ''}\n\n` +
+
+      (out.callouts || [])
+        .map(
+          (c)=>
+            `${c.value || ''} — ${c.label || ''}`
+        )
+        .join('\n') +
+
+      `\n\n${out.takeaway || ''}`
+
+    );
+
+  }
+
+
+  return JSON.stringify(
+    out,
+    null,
+    2
+  );
+
+}
+
+</script>
+
+</body>
+</html>
